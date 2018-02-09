@@ -1,70 +1,70 @@
-	<!DOCTYPE html>
-	<html>
-	<head>
-		<title>SoundTrack | Start</title>
+<!doctype html>
 
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="styles.css">
+<html>
+<head>
+	<title>SoundTrack | Start</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
-	</head>
-	<body>
-		<div class="container">
-			<center>
-				<div class="jumbotron">
-					<h1>SoundTrack</h1>
-				</div>
+	<!-- this is a comment in HTML -->
 
-				<button type="button" onclick="helpStart()">?</button>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->        
+</head>
 
-				<br><br>
-				<h4>Soundscape</h4>
+<body>
+	<div class="container">
+		<center>
+			<div class="jumbotron">
+				<h1>SoundTrack</h1>
+			</div>
 
-				<div class="sound" id="sound1">
-					<a href="" class="thumbnail">
-						<p>Soundscape sound goes here</p>
-					</a>
-				</div>
-				<button class="button" onclick="soundEffect(1)" id="sound1">Falling Rain</button>
-    			<button class="button" onclick="soundEffect(2)" id="sound2">Forest Morning</button>
-    			<button class="button" onclick="soundEffect(3)" id="sound3">Burning Logs</button>
-    			<button class="button" onclick="soundEffect(4)" id="sound4">White Noise</button>
-    		
+			<button type="button" onclick="helpStart()">?</button>
 
-				<br><br>
-				<h4>Alert Sound</h4>
-				<div class="sound" id="sound5">
-					<a href="" class="thumbnail">
-						<p>Alert sound goes here</p>
-					</a>
-				</div>
-				<button class="button" onclick="soundEffect(5)" id="sound5">Foghorn</button>
-    			<button class="button" onclick="soundEffect(6)" id="sound6">Beeping</button>
-   				<button class="button" onclick="soundEffect(7)" id="sound7">Siren</button>
-    			<button class="button" onclick="soundEffect(8)" id="sound8">Bells</button>
-    			<br><br>
-    			<div id="div1">No soundeffect selected yet...</div>
+			<br><br>
+			<h4>Soundscape</h4>
 
-				<br><br><br><br>
-				<output id="downtime" for="downtimeRange">20</output>
-				<br><br>
-				<div class="slidecontainer">
-					<input type="range" min="1" max="40" value="20" class="slider" id="downtimeRange" oninput="downtime.value = downtimeRange.value">
-				</div>
+			<div class="sound" id="sound1">
+				<a href="" class="thumbnail">
+					<p>Soundscape sound goes here</p>
+				</a>
+			</div>
+			<button type="button" ">Left</button>
+			<button type="button" ">Right</button>
+			
+			<br><br>
+			<h4>Alert Sound</h4>
+			<div class="sound" id="sound5">
+				<a href="" class="thumbnail">
+					<p>Alert sound goes here</p>
+				</a>
+			</div>
+			<button type="button" ">Left</button>
+			<button type="button" ">Right</button>
 
-				<br><br>
-				<div class="button" id="start">
-					<a href="screen2" class="thumbnail">
-						<p>Start Working!</p>
-					</a>
-				</div>
-			</center>
-		</div>
+			<br><br><br><br>
+			<output id="downtime" for="downtimeRange">20</output>
+			<br><br>
+			<div class="slidecontainer">
+				<input type="range" min="1" max="40" value="20" class="slider" id="downtimeRange" oninput="downtime.value = downtimeRange.value">
+			</div>
 
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
-		<script src="script.js"></script>
+			<br><br>
+			<div class="button" id="start">
+				<a href="screen2" class="thumbnail">
+					<p>Start Working!</p>
+				</a>
+			</div>
+		</center>
+	</div>
 
-
-	</body>
-	</html>
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/script.js"></script>
+</body>
+</html>
