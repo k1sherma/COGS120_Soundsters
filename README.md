@@ -1,1 +1,4 @@
-# COGS120_Soundsters
+repo
+====
+
+Project Description
