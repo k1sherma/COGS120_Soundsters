@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Settings</title>
+	<title>Settings</title>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
-</head>   
+	
+</head>
 <body>
 	<div class="container">
 		<center>
@@ -18,7 +19,7 @@
 			<button type="button" onclick="helpSettings()">?</button>
 
 			<div class="button" id="back">
-				<a href="screen2" class="thumbnail">
+				<a href="screen2.html" class="thumbnail">
 					<p>Back</p>
 				</a>
 			</div>
@@ -29,8 +30,10 @@
 					<p>Alert sound goes here</p>
 				</a>
 			</div>
-			<button type="button" ">Left</button>
-			<button type="button" ">Right</button>
+			<button class="button" onclick="soundEffect(5)" id="sound5">Foghorn</button>
+    		<button class="button" onclick="soundEffect(6)" id="sound6">Beeping</button>
+   			<button class="button" onclick="soundEffect(7)" id="sound7">Siren</button>
+    		<button class="button" onclick="soundEffect(8)" id="sound8">Bells</button>
 
 
 
@@ -56,6 +59,8 @@
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/script.js"></script>
+<script src="script.js"></script>
+
+
 </body>
 </html>
