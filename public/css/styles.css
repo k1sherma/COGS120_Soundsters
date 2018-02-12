@@ -1,19 +1,47 @@
 button {
-    background-color: #eee;
+    background-color: #00BCD4;
+    color: #fff;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .button {
     width: 20%;
     background-color: #eee;
-    padding: 1px;
-    margin-top: 15px;
+    padding: 10px;
+    margin-top: 12px;
+    background-color: #00BCD4;
+    color: #fff;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 html {
     font-family: 'Josefin Sans', sans-serif;
 }
 
+h4 {
+  font-size: 140%;
+  font-family: 'Josefin Sans', sans-serif;
+}
 
+h1 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#productivityTracker {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.productivity {
+  width: 20%; 
+  background-color: lightblue; 
+  float:left;
+}
+
+.offtask {
+  width: 20%;
+  background-color: red; 
+  float:right;
+}
 
 #downtime:before {
   content: "Allowed Downtime: ";
@@ -23,6 +51,11 @@ html {
 
 #downtime:after {
     content: " minutes"
+}
+
+.downtime-text {
+  font-weight: bold;
+  font-size: 100%;
 }
 
 #volume:before {
