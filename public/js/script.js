@@ -105,29 +105,52 @@ function checkDowntime() {
   }
 }*/
 
-/*function startTimer() { // Jackie's countdown
+//Simulate login
+function fakeLogin(){
+	var user = document.getElementById('username').value;
+	var pass = document.getElementById('password').value;
+	if(user == "user" && pass == "pass"){
+		window.location = "/";
+	}
+	else{
+		alert("Incorrect username/password");
+	}
+}
+
+var timerCountdown;
+var pTimerCountdown;
+
+function startTimer() { // Jackie's countdown
   var presentTime = document.getElementById('timer').innerHTML;
   var timeArray = presentTime.split(/[:]+/);
   var m = parseInt(timeArray[0]);
   var s = parseInt(timeArray[1]);
 
-  if(s == 0) { 
+  if(s == 0 && m > 0) { 
     m = m - 1;
     s = 59;
-  } else {
+  } 
+  else if(s > 0){
     s -= 1;
   }
 
-  if (m == 0 & s == 0) {
-    printTime(m, s, 'timer'); 
+  if (m == 0 && s == 0) {
+    printTime(m, s, 'timer');
+	playSavedAlarm();
+	clearTimeout(timerCountdown);
+	
   } else {
     printTime(m, s, 'timer'); 
-    setTimeout(startTimer, 1000);
+    timerCountdown = setTimeout(startTimer, 1000);
   }
-}*/
+  sessionStorage.setItem("downtimeVal", m);
+  sessionStorage.setItem("downtimeValSecs", s);
+}
 
-
-startPTimer();
+var pTime = document.getElementById('productiveTime');
+if(pTime != null){
+	startPTimer();
+}
 
 // should we track total productivity? total downtime?
 function startPTimer() {
@@ -136,13 +159,21 @@ function startPTimer() {
   var m = parseInt(timeArray[0]); // change string minute to integer
   var s = parseInt(timeArray[1]) + 1;
   //hit 59 m =+1
-  if(s == 59) { 
+  if(s == 60) { 
     m += 1;
     s = 0;
   }
-
+  
+  // Saves the productive time
+  // TODO: fix so value is gotten from storage before the first time it is saved 
+  if(s > 1){
+	//console.log("saved m " + m);
+	//console.log("saved s " + s);
+	sessionStorage.setItem("pTimeVal", m);
+	sessionStorage.setItem("pTimeValSecs", s);
+  }
   printTime(m, s, 'productiveTime'); 
-  setTimeout(startPTimer, 1000);
+  pTimerCountdown = setTimeout(startPTimer, 1000);
 }
 
 
@@ -158,10 +189,22 @@ function updateTimeRange(val) {
 if(timer != null){
   timer.innerHTML = sessionStorage.getItem("downtimeVal") + ":" + sessionStorage.getItem("downtimeValSecs");
 }
+if(pTime != null){
+  var storedPTimeVal = sessionStorage.getItem("pTimeVal");
+  var storedPTimeValSecs = sessionStorage.getItem("pTimeValSecs");
+  //console.log("got m " + storedPTimeVal);
+  //console.log("got s " + storedPTimeValSecs);
+  if(storedPTimeVal != null && storedPTimeValSecs != null){
+	printTime(storedPTimeVal, storedPTimeValSecs, 'productiveTime');
+  }
+  else{
+	pTime.innerHTML = "00:00"
+  }
+}
 
 function printTime(m, s, element) {
   document.getElementById(element).innerHTML = checkTimeDigit(m) + ":" + checkTimeDigit(s);
-}
+}		
 
 function checkTimeDigit(time) {
   if (time < 10 && time >= 0) {time = "0" + time}; // add zero in front of numbers < 10
@@ -171,6 +214,7 @@ function checkTimeDigit(time) {
 
     //------- CHECK ACTIVE/INACTIVE -------//
 
+	var isActive;
     // set isActive status
     window.onfocus = function () { 
       isActive = true; 
@@ -185,7 +229,9 @@ function checkTimeDigit(time) {
     // implement start of timer when user is inactive
     if ( isActive == false ) {
       start = Date.now();
-      alert("Productivity paused");
+      //alert("Productivity paused");
+	  clearTimeout(pTimerCountdown);
+	  startTimer();
       checkEnd = setInterval(onPage, 1000);
       clearInterval(checkPage);
     } 
@@ -195,24 +241,27 @@ function checkTimeDigit(time) {
   onPage = function () { 
     if ( start > 0 && isActive) {
       end = Date.now();
+	  clearTimeout(timerCountdown);
+	  startPTimer();
     elapsed = (end - start) / 1000; // number of seconds away from tab
     elapsedMinutes = Math.floor(elapsed / 60);
     elapsedSeconds = Math.floor(elapsed % 60);
     // alert("Welcome back! You spent " + elapsedMinutes + " minutes and " + elapsedSeconds + " seconds off-task!");
+	
     
     // update timers -- save productivity timer into local storage!
     var presentTime = document.getElementById('timer').innerHTML;
     var timeArray = presentTime.split(/[:]+/);
     var m = parseInt(timeArray[0]);
     var s = parseInt(timeArray[1]);
-    m = m - elapsedMinutes;
+    /**m = m - elapsedMinutes;
     s = s - elapsedSeconds;
     if(s < 0) { 
       m -= 1;
       s += 60;
     }
 
-    printTime(m, s, 'timer');
+    printTime(m, s, 'timer');**/
     sessionStorage.setItem("downtimeVal", m);
     sessionStorage.setItem("downtimeValSecs", s);
     
@@ -223,8 +272,9 @@ function checkTimeDigit(time) {
 }
 
   // start cycle of checking for inactivity
-  checkPage = setInterval(offPage, 1000); 
-
+  if(timer != null){
+	checkPage = setInterval(offPage, 1000); 
+  }
 
 
     //------- HELP POP-UPS -------//
@@ -269,11 +319,15 @@ function checkTimeDigit(time) {
     siren.src = "../sounds/siren.mp3";
     bells.src = "../sounds/bells.mp3";
     
-    function playSavedSound(){
-
+    function playSavedSoundscape(){
       var soundscape = localStorage.getItem("soundscape");
       console.log (soundscape);
       soundEffect(soundscape);
+    }
+	function playSavedAlarm(){
+      var alarmSound = localStorage.getItem("alarm");
+      console.log (alarmSound);
+      soundEffect(alarmSound);
     }
     function soundEffect(num)
     {
@@ -289,7 +343,13 @@ function checkTimeDigit(time) {
         bells.pause();
         console.log ("paused");
       }
-      localStorage.setItem("soundscape",num);
+	  // Save the soundscape or alarm selection
+	  if(num >= 1 && num <= 4){
+		localStorage.setItem("soundscape", num);
+	  }
+	  else{
+		localStorage.setItem("alarm", num);
+	  }
       //play the song is clicked
       if (num == 1) {
         console.log("hi");
@@ -327,7 +387,9 @@ function checkTimeDigit(time) {
       
       //show which song is selected
       var div1 = document.getElementById("div1");
-      div1.innerHTML = "You selected "+num;
+	  if(div1 != null){
+		div1.innerHTML = "You selected "+num;
+	  }
     }
 
 

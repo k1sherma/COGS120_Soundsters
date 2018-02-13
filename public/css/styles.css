@@ -43,15 +43,6 @@ h1 {
   float:right;
 }
 
-#downtime:before {
-  content: "Allowed Downtime: ";
-  font-weight: bold;
-  font-size: 100%;
-}
-
-#downtime:after {
-    content: " minutes"
-}
 
 .downtime-text {
   font-weight: bold;
